@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>t3Bridge — Universal P2P Business Application Bridge for Windows</title>
+  <meta name="description" content="Zero-latency LAN-over-WAN P2P mesh network for Marg ERP, Tally Prime, Busy ERP, and Windows SMB shares. Access your office server from anywhere." />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar" id="top">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="t3Bridge Home">
+        <img src="logo.svg" alt="t3Bridge Logo" class="brand-logo" />
+        <span class="brand-name">t3Bridge</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Primary Navigation">
+        <a href="#features">Features</a>
+        <a href="#branches">Multi-Branch</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#security">Security</a>
+        <a href="#apps">Apps</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#t3hub-install" class="btn btn-yellow">T3 Hub</a>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue">
+          Download Free <span class="arrow">→</span>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero navy-section">
+    <!-- Subtle Topographic Wave Lines -->
+    <svg class="wave-bg" viewBox="0 0 1440 620" fill="none" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-80 420C220 260 520 560 880 320C1140 146 1320 220 1520 120" stroke="#4F9CF9" stroke-opacity="0.16" stroke-width="1.5"/>
+      <path d="M-80 460C240 300 540 590 900 350C1160 176 1340 250 1540 150" stroke="#4F9CF9" stroke-opacity="0.13" stroke-width="1.5"/>
+      <path d="M-80 500C260 340 560 620 920 380C1180 206 1360 280 1560 180" stroke="#4F9CF9" stroke-opacity="0.10" stroke-width="1.5"/>
+      <path d="M-80 380C200 220 500 520 860 280C1120 106 1300 180 1500 80" stroke="#4F9CF9" stroke-opacity="0.12" stroke-width="1.5"/>
+      <path d="M-80 540C280 380 580 650 940 410C1200 236 1380 310 1580 210" stroke="#4F9CF9" stroke-opacity="0.08" stroke-width="1.5"/>
+    </svg>
+
+    <div class="container split-grid hero-grid">
+      <div class="hero-copy">
+        <h1>Get More Done with t3Bridge</h1>
+        <p class="hero-desc">
+          Universal P2P Business Application Bridge &amp; Mesh Network that connects your branch PCs directly to your office server — run Marg ERP, Tally Prime, Busy ERP &amp; SMB shares over WAN with zero-latency native drive mounting.
+        </p>
+        <div class="hero-cta-row">
+          <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue btn-lg">
+            Download t3Bridge Free <span class="arrow">→</span>
+          </a>
+          <span class="version-pill">v0.1.0 &bull; Windows 10 / 11 (x64)</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Custom Whitepace-style Vector Illustration: Office Server + Remote Mesh Dashboard -->
+        <svg viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration">
+          <!-- Soft glow backdrop -->
+          <ellipse cx="285" cy="210" rx="220" ry="155" fill="#4F9CF9" fill-opacity="0.14"/>
+          <circle cx="475" cy="95" r="24" fill="#FFE492" fill-opacity="0.22"/>
+          <circle cx="72" cy="300" r="18" fill="#4F9CF9" fill-opacity="0.25"/>
+
+          <!-- Main Monitor / App Window -->
+          <rect x="112" y="54" width="336" height="236" rx="16" fill="#FFFFFF" filter="url(#shadowHero)"/>
+          <!-- Window Top Bar -->
+          <rect x="112" y="54" width="336" height="36" rx="16" fill="#EBF4FF"/>
+          <rect x="112" y="74" width="336" height="16" fill="#EBF4FF"/>
+          <circle cx="134" cy="72" r="5" fill="#FF6B6B"/>
+          <circle cx="150" cy="72" r="5" fill="#FFE492"/>
+          <circle cx="166" cy="72" r="5" fill="#34D399"/>
+          <rect x="200" y="66" width="160" height="12" rx="6" fill="#C4DEFD"/>
+
+          <!-- Dashboard Left Card: Host Server -->
+          <rect x="132" y="108" width="136" height="114" rx="10" fill="#F0F7FF" stroke="#C4DEFD" stroke-width="1.5"/>
+          <rect x="146" y="122" width="66" height="10" rx="5" fill="#043873"/>
+          <rect x="146" y="140" width="104" height="8" rx="4" fill="#A7CEFC"/>
+          <rect x="146" y="156" width="84" height="8" rx="4" fill="#C4DEFD"/>
+          <!-- Active Status Pill -->
+          <rect x="146" y="182" width="92" height="24" rx="12" fill="#10B981" fill-opacity="0.16"/>
+          <circle cx="160" cy="194" r="4.5" fill="#10B981"/>
+          <rect x="171" y="190" width="52" height="8" rx="4" fill="#047857"/>
+
+          <!-- Dashboard Right Card: Mounted Drive Z: -->
+          <rect x="284" y="108" width="144" height="114" rx="10" fill="#043873"/>
+          <rect x="298" y="122" width="74" height="10" rx="5" fill="#FFE492"/>
+          <!-- Signal Bars -->
+          <rect x="298" y="176" width="16" height="28" rx="4" fill="#4F9CF9"/>
+          <rect x="322" y="162" width="16" height="42" rx="4" fill="#4F9CF9"/>
+          <rect x="346" y="150" width="16" height="54" rx="4" fill="#FFE492"/>
+          <rect x="370" y="140" width="16" height="64" rx="4" fill="#34D399"/>
+          <rect x="394" y="132" width="16" height="72" rx="4" fill="#4F9CF9"/>
+
+          <!-- Bottom Status Bar inside Monitor -->
+          <rect x="132" y="236" width="296" height="36" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <circle cx="152" cy="254" r="7" fill="#4F9CF9"/>
+          <rect x="168" y="250" width="110" height="8" rx="4" fill="#043873"/>
+          <rect x="336" y="244" width="78" height="20" rx="6" fill="#4F9CF9"/>
+
+          <!-- Monitor Stand -->
+          <rect x="252" y="290" width="56" height="24" fill="#C4DEFD"/>
+          <rect x="218" y="312" width="124" height="12" rx="6" fill="#A7CEFC"/>
+
+          <!-- Floating Badge Left: Encrypted Tunnel -->
+          <g filter="url(#shadowSm)">
+            <rect x="30" y="126" width="118" height="58" rx="12" fill="#FFFFFF"/>
+            <circle cx="56" cy="155" r="15" fill="#FFE492"/>
+            <path d="M51 155V152C51 149.2 53.2 147 56 147C58.8 147 61 149.2 61 152V155M50 155H62V163H50V155Z" stroke="#043873" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="80" y="145" width="54" height="8" rx="4" fill="#043873"/>
+            <rect x="80" y="159" width="38" height="6" rx="3" fill="#94A3B8"/>
+          </g>
+
+          <!-- Floating Badge Right: Drive Z:\ Ready -->
+          <g filter="url(#shadowSm)">
+            <rect x="414" y="218" width="122" height="58" rx="12" fill="#FFFFFF"/>
+            <circle cx="440" cy="247" r="15" fill="#4F9CF9"/>
+            <path d="M434 247L438.5 251.5L447 242.5" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="464" y="237" width="58" height="8" rx="4" fill="#043873"/>
+            <rect x="464" y="251" width="42" height="6" rx="3" fill="#94A3B8"/>
+          </g>
+
+          <defs>
+            <filter id="shadowHero" x="92" y="42" width="376" height="276" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#021D3D" flood-opacity="0.35"/>
+            </filter>
+            <filter id="shadowSm" x="18" y="118" width="530" height="174" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#021D3D" flood-opacity="0.22"/>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE 1: INSTANT DRIVE MOUNTING ================= -->
+  <section class="section white-section" id="features">
+    <div class="container split-grid">
+      <div class="feature-copy">
+        <h2>
+          Instant Drive
+          <span class="highlight-wrap">
+            Mounting
+            <svg class="brush-underline" viewBox="0 0 260 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C68 5 186 4 256 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+        <p>
+          Access your office accounting folders as native Windows network drives (<code>Z:</code>, <code>Y:</code>) from anywhere in the world. Marg ERP, Tally Prime, and Busy Accounting run seamlessly without sluggish remote desktop lag or complex router port-forwarding.
+        </p>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue">
+          Get Started <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="feature-visual">
+        <!-- Illustration: Native Drive Mapping & ERP Sync -->
+        <svg viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration">
+          <rect x="44" y="34" width="432" height="292" rx="20" fill="#EBF4FF"/>
+          <!-- Window Card -->
+          <rect x="78" y="64" width="364" height="232" rx="14" fill="#FFFFFF" stroke="#C4DEFD" stroke-width="1.5"/>
+          <rect x="78" y="64" width="364" height="38" rx="14" fill="#043873"/>
+          <rect x="78" y="88" width="364" height="14" fill="#043873"/>
+          <circle cx="102" cy="83" r="4.5" fill="#FF6B6B"/>
+          <circle cx="117" cy="83" r="4.5" fill="#FFE492"/>
+          <circle cx="132" cy="83" r="4.5" fill="#34D399"/>
+          <text x="152" y="88" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="13" font-weight="600">t3Bridge — Mapped Office Drives</text>
+
+          <!-- Drive Row 1 -->
+          <rect x="102" y="120" width="316" height="46" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <rect x="116" y="131" width="24" height="24" rx="6" fill="#4F9CF9"/>
+          <text x="123" y="148" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="13" font-weight="700">Z</text>
+          <text x="152" y="141" fill="#043873" font-family="Inter, sans-serif" font-size="13" font-weight="700">\\10.99.0.1\MargERP</text>
+          <text x="152" y="156" fill="#64748B" font-family="Inter, sans-serif" font-size="11">Mounted &bull; 12ms Wintun Tunnel</text>
+          <rect x="348" y="132" width="58" height="22" rx="11" fill="#DCFCE7"/>
+          <text x="360" y="147" fill="#15803D" font-family="Inter, sans-serif" font-size="11" font-weight="600">Active</text>
+
+          <!-- Drive Row 2 -->
+          <rect x="102" y="178" width="316" height="46" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+          <rect x="116" y="189" width="24" height="24" rx="6" fill="#FFE492"/>
+          <text x="123" y="206" fill="#043873" font-family="Inter, sans-serif" font-size="13" font-weight="700">Y</text>
+          <text x="152" y="199" fill="#043873" font-family="Inter, sans-serif" font-size="13" font-weight="700">\\10.99.0.1\TallyData</text>
+          <text x="152" y="214" fill="#64748B" font-family="Inter, sans-serif" font-size="11">Mounted &bull; Auto-Flush Protected</text>
+          <rect x="348" y="190" width="58" height="22" rx="11" fill="#DCFCE7"/>
+          <text x="360" y="205" fill="#15803D" font-family="Inter, sans-serif" font-size="11" font-weight="600">Active</text>
+
+          <!-- Drive Row 3 -->
+          <rect x="102" y="236" width="316" height="42" rx="10" fill="#F0F7FF" stroke="#C4DEFD" stroke-dasharray="4 4"/>
+          <text x="195" y="261" fill="#4F9CF9" font-family="Inter, sans-serif" font-size="12.5" font-weight="600">+ Add Custom AppProfile Share</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE 2: WORK TOGETHER (ORBITAL NODES) ================= -->
+  <section class="section white-section section-tight-top" id="branches">
+    <div class="container split-grid reverse-mobile">
+      <div class="feature-visual">
+        <!-- Iconic Whitepace Orbital Nodes Diagram -->
+        <svg viewBox="0 0 460 440" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration orbital-svg">
+          <!-- Outer Dashed Orbit -->
+          <circle cx="230" cy="220" r="185" stroke="#A7CEFC" stroke-width="2" stroke-dasharray="7 7"/>
+          <!-- Inner Dashed Orbit -->
+          <circle cx="230" cy="220" r="112" stroke="#A7CEFC" stroke-width="2" stroke-dasharray="7 7"/>
+
+          <!-- Center Hub Card -->
+          <g filter="url(#orbitShadow)">
+            <rect x="184" y="174" width="92" height="92" rx="22" fill="#FFFFFF"/>
+            <image href="logo.svg" x="196" y="186" width="68" height="68" />
+          </g>
+
+          <!-- Outer Orbit Nodes -->
+          <g class="orbit-node">
+            <circle cx="230" cy="35" r="24" fill="#FF6B6B"/>
+            <text x="230" y="40" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="12" font-weight="700">HQ</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="395" cy="135" r="24" fill="#4F9CF9"/>
+            <text x="395" y="140" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="11" font-weight="700">BR-1</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="385" cy="325" r="24" fill="#34D399"/>
+            <text x="385" y="330" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="11" font-weight="700">CA</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="230" cy="405" r="24" fill="#F59E0B"/>
+            <text x="230" y="410" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="11" font-weight="700">WH</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="65" cy="310" r="24" fill="#4F9CF9"/>
+            <text x="65" y="315" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="11" font-weight="700">BR-2</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="72" cy="122" r="24" fill="#FFE492"/>
+            <text x="72" y="127" text-anchor="middle" fill="#043873" font-family="Inter, sans-serif" font-size="11" font-weight="700">HOME</text>
+          </g>
+
+          <!-- Inner Orbit Nodes -->
+          <g class="orbit-node">
+            <circle cx="230" cy="108" r="19" fill="#34D399"/>
+            <text x="230" y="113" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="10" font-weight="700">ERP</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="332" cy="264" r="19" fill="#FFE492"/>
+            <text x="332" y="269" text-anchor="middle" fill="#043873" font-family="Inter, sans-serif" font-size="10" font-weight="700">SMB</text>
+          </g>
+          <g class="orbit-node">
+            <circle cx="128" cy="264" r="19" fill="#FF6B6B"/>
+            <text x="128" y="269" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="10" font-weight="700">WAN</text>
+          </g>
+
+          <defs>
+            <filter id="orbitShadow" x="164" y="158" width="132" height="132" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#043873" flood-opacity="0.16"/>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="feature-copy">
+        <h2>
+          Work
+          <span class="highlight-wrap">
+            together
+            <svg class="brush-underline" viewBox="0 0 240 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C68 5 170 5 236 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+        <p>
+          With t3Bridge, connect your Head Office server with branches, warehouses, and remote accountants in seconds. Just share your Connect Code &amp; Host Access Password — automatic Cloud Signaling discovery handles the rest.
+        </p>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue">
+          Try It Now <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE 3: CUSTOMISE TO YOUR NEEDS ================= -->
+  <section class="section navy-section">
+    <div class="container split-grid">
+      <div class="feature-copy">
+        <h2>
+          Customise it to
+          <span class="highlight-wrap">
+            your needs
+            <svg class="brush-underline" viewBox="0 0 250 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C74 4 180 5 246 14" stroke="#4F9CF9" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+        <p>
+          Zero hardcoding. Configure custom AppProfiles for any business application — choose your target SMB share, map preferred drive letters, set Host Access Passwords, and remember credentials for one-click daily reconnects.
+        </p>
+        <a href="#pricing" class="btn btn-blue">
+          Let's Go <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="feature-visual">
+        <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration">
+          <rect x="30" y="24" width="460" height="292" rx="18" fill="#0B478C" stroke="#4F9CF9" stroke-opacity="0.4" stroke-width="1.5"/>
+          <!-- Profile Cards -->
+          <rect x="56" y="54" width="194" height="106" rx="12" fill="#FFFFFF"/>
+          <rect x="74" y="72" width="40" height="40" rx="10" fill="#EBF4FF"/>
+          <text x="94" y="97" text-anchor="middle" fill="#043873" font-family="Inter, sans-serif" font-size="14" font-weight="800">M</text>
+          <text x="126" y="88" fill="#043873" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Marg ERP</text>
+          <text x="126" y="106" fill="#64748B" font-family="Inter, sans-serif" font-size="11">Drive Z: &bull; SMB</text>
+          <rect x="74" y="128" width="158" height="14" rx="7" fill="#EBF4FF"/>
+          <rect x="74" y="128" width="112" height="14" rx="7" fill="#4F9CF9"/>
+
+          <rect x="270" y="54" width="194" height="106" rx="12" fill="#FFFFFF"/>
+          <rect x="288" y="72" width="40" height="40" rx="10" fill="#FEF3C7"/>
+          <text x="308" y="97" text-anchor="middle" fill="#043873" font-family="Inter, sans-serif" font-size="14" font-weight="800">T</text>
+          <text x="340" y="88" fill="#043873" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Tally Prime</text>
+          <text x="340" y="106" fill="#64748B" font-family="Inter, sans-serif" font-size="11">Drive Y: &bull; Port 9000</text>
+          <rect x="288" y="128" width="158" height="14" rx="7" fill="#FEF3C7"/>
+          <rect x="288" y="128" width="134" height="14" rx="7" fill="#FFE492"/>
+
+          <!-- Bottom Config Strip -->
+          <rect x="56" y="182" width="408" height="108" rx="12" fill="#043873" stroke="#4F9CF9" stroke-opacity="0.5"/>
+          <text x="80" y="212" fill="#FFE492" font-family="Inter, sans-serif" font-size="13" font-weight="700">Host Access Security</text>
+          <rect x="80" y="226" width="210" height="36" rx="8" fill="#0B478C" stroke="#4F9CF9" stroke-opacity="0.5"/>
+          <text x="96" y="249" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="13" font-weight="500">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</text>
+          <rect x="308" y="226" width="132" height="36" rx="8" fill="#4F9CF9"/>
+          <text x="374" y="249" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="12.5" font-weight="600">Salted SHA-256</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICING SECTION ================= -->
+  <section class="section white-section" id="pricing">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>
+          Choose
+          <span class="highlight-wrap">
+            Your Plan
+            <svg class="brush-underline" viewBox="0 0 240 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C70 4 172 4 236 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+        <p class="section-sub">
+          Whether you are a single accountant working from home or a multi-branch enterprise, t3Bridge scales effortlessly with hardware-bound Ed25519 licensing.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plan 1: Starter Pack (3 Nodes) -->
+        <div class="price-card">
+          <div class="plan-name">Starter Pack</div>
+          <div class="plan-price">3 Nodes</div>
+          <p class="plan-tagline">1 Host Server + 3 Client PCs — ideal for small offices &amp; CA practices.</p>
+          <ul class="plan-features">
+            <li>1 Host + 3 Concurrent Client Nodes</li>
+            <li>Validity: 1 Year / 2 Years / Lifetime</li>
+            <li>Wintun virtual WAN tunnel &amp; SMB mount</li>
+            <li>Host Access Password authentication</li>
+            <li>Hardware-bound Ed25519 license key</li>
+          </ul>
+          <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-outline">
+            Start 7-Day Free Trial
+          </a>
+        </div>
+
+        <!-- Plan 2: Extended Pack (5 Nodes — Featured Navy Card) -->
+        <div class="price-card featured">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-name">Extended Pack</div>
+          <div class="plan-price">5 Nodes</div>
+          <p class="plan-tagline">1 Host Server + 5 Client PCs — built for growing multi-branch teams.</p>
+          <ul class="plan-features">
+            <li>1 Host + 5 Concurrent Client Nodes</li>
+            <li>Validity: 1 Year / 2 Years / Lifetime</li>
+            <li>Unlimited WAN relay bandwidth</li>
+            <li>Anti-corruption safe disconnect flush</li>
+            <li>Sleep prevention &amp; auto-reconnect</li>
+            <li>Single Node client add-ons available</li>
+          </ul>
+          <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Plan 3: Enterprise Pack (10+ Nodes) -->
+        <div class="price-card">
+          <div class="plan-name">Enterprise</div>
+          <div class="plan-price">10+ Nodes</div>
+          <p class="plan-tagline">1 Host + 10 Clients or Custom Node Count (up to 100 nodes).</p>
+          <ul class="plan-features">
+            <li>1 Host + 10 Clients (or Custom 1–100 Nodes)</li>
+            <li>Validity: 1 Year / 2 Years / Lifetime (Perpetual)</li>
+            <li>Dedicated cloud signaling server option</li>
+            <li>Custom AppProfiles &amp; silent deployment</li>
+            <li>30-day extended evaluation trial available</li>
+          </ul>
+          <a href="#footer" class="btn btn-outline">
+            Contact for License
+          </a>
+        </div>
+      </div>
+
+      <p class="pricing-footnote text-center">
+        Every download includes a <strong>7-day free trial</strong>. Need just one extra seat? <strong>Single Node (Client Add-on)</strong> &amp; <strong>Lifetime / Perpetual</strong> licenses are available directly via the t3Bridge License Portal.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FULL-WIDTH NAVY BANNER ================= -->
+  <section class="section navy-section text-center banner-section">
+    <svg class="wave-bg" viewBox="0 0 1440 360" fill="none" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-80 280C260 120 620 340 1040 160C1260 66 1380 120 1520 60" stroke="#4F9CF9" stroke-opacity="0.16" stroke-width="1.5"/>
+      <path d="M-80 320C280 160 640 380 1060 200C1280 106 1400 160 1540 100" stroke="#4F9CF9" stroke-opacity="0.11" stroke-width="1.5"/>
+    </svg>
+    <div class="container narrow-container">
+      <h2>
+        Your office, everywhere
+        <span class="highlight-wrap">
+          you are
+          <svg class="brush-underline" viewBox="0 0 210 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M4 15C64 4 152 4 206 13" stroke="#4F9CF9" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </h2>
+      <p class="banner-desc">
+        Access your office server from home, branch stores, or on the move using our lightweight Windows desktop client built in Rust &amp; Tauri v2. No static IP required — works seamlessly behind any broadband or 4G/5G router.
+      </p>
+      <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue btn-lg">
+        Download t3Bridge <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= SECURITY: 100% YOUR DATA ================= -->
+  <section class="section white-section" id="security">
+    <div class="container split-grid">
+      <div class="feature-copy">
+        <h2>
+          100%
+          <span class="highlight-wrap">
+            your data
+            <svg class="brush-underline" viewBox="0 0 230 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C70 4 166 5 226 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+        <p>
+          Your accounting database never gets stored in the cloud. t3Bridge establishes a direct encrypted tunnel between your office server and authorized client PCs — backed by Ed25519 asymmetric cryptography, Hardware ID (HWID) binding, and safe disconnect I/O flushing to prevent database corruption.
+        </p>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release" target="_blank" rel="noopener noreferrer" class="btn btn-blue">
+          Read Security Spec <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="feature-visual">
+        <!-- Security Semi-Orbit Diagram -->
+        <svg viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration">
+          <path d="M70 250 A180 180 0 0 1 430 250" stroke="#A7CEFC" stroke-width="2.5" stroke-dasharray="8 8"/>
+          <path d="M135 250 A115 115 0 0 1 365 250" stroke="#C4DEFD" stroke-width="2" stroke-dasharray="6 6"/>
+
+          <!-- Center Badge -->
+          <g filter="url(#secShadow)">
+            <rect x="206" y="198" width="88" height="72" rx="18" fill="#FFFFFF"/>
+            <image href="logo.svg" x="224" y="208" width="52" height="52" />
+          </g>
+
+          <!-- Security Nodes along arc -->
+          <g filter="url(#secShadow)">
+            <rect x="46" y="160" width="52" height="52" rx="14" fill="#FFFFFF"/>
+            <path d="M72 174L84 179V188C84 195.5 78.8 201.8 72 204C65.2 201.8 60 195.5 60 188V179L72 174Z" stroke="#4F9CF9" stroke-width="2.4" fill="#EBF4FF"/>
+          </g>
+          <g filter="url(#secShadow)">
+            <rect x="136" y="68" width="52" height="52" rx="14" fill="#FFFFFF"/>
+            <rect x="152" y="92" width="20" height="16" rx="4" stroke="#043873" stroke-width="2.4" fill="#FFE492"/>
+            <path d="M156 92V87C156 83.7 158.7 81 162 81C165.3 81 168 83.7 168 87V92" stroke="#043873" stroke-width="2.4"/>
+          </g>
+          <g filter="url(#secShadow)">
+            <rect x="312" y="68" width="52" height="52" rx="14" fill="#FFFFFF"/>
+            <circle cx="334" cy="94" r="7" stroke="#4F9CF9" stroke-width="2.4"/>
+            <path d="M341 94H352M348 94V99" stroke="#4F9CF9" stroke-width="2.4" stroke-linecap="round"/>
+          </g>
+          <g filter="url(#secShadow)">
+            <rect x="402" y="160" width="52" height="52" rx="14" fill="#FFFFFF"/>
+            <path d="M418 186L425 193L438 179" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <defs>
+            <filter id="secShadow" x="30" y="56" width="440" height="232" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#043873" flood-opacity="0.12"/>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUPPORTED SOFTWARE / SPONSORS STYLE ================= -->
+  <section class="section white-section section-tight-top text-center" id="apps">
+    <div class="container">
+      <h2>
+        Built for Your
+        <span class="highlight-wrap">
+          Business Apps
+          <svg class="brush-underline" viewBox="0 0 280 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M4 16C84 4 200 5 276 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </h2>
+      <div class="logos-row">
+        <div class="logo-chip">
+          <span class="logo-dot" style="background:#043873;"></span> Marg ERP
+        </div>
+        <div class="logo-chip">
+          <span class="logo-dot" style="background:#4F9CF9;"></span> Tally Prime
+        </div>
+        <div class="logo-chip">
+          <span class="logo-dot" style="background:#F59E0B;"></span> Busy Accounting
+        </div>
+        <div class="logo-chip">
+          <span class="logo-dot" style="background:#10B981;"></span> Windows SMB
+        </div>
+        <div class="logo-chip">
+          <span class="logo-dot" style="background:#6366F1;"></span> T3 Hub
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= T3 HUB INTEGRATION BANNER (NAVY) ================= -->
+  <section class="section navy-section" id="t3hub-install">
+    <div class="container split-grid reverse-mobile">
+      <div class="feature-visual">
+        <div class="t3hub-card">
+          <div class="t3hub-card-header">
+            <span class="t3hub-badge">T3 Hub Verified Package</span>
+            <span class="t3hub-ver">v0.1.0</span>
+          </div>
+          <h3>Install via T3 Hub</h3>
+          <p>Add our community repository URL in T3 Hub for SHA-256 verified silent installation and automatic updates:</p>
+          <div class="copy-box">
+            <code id="t3hubUrl">https://raw.githubusercontent.com/wintararaj-cmd/t3bridge-release/main/</code>
+            <button type="button" class="btn-copy" id="copyUrlBtn">Copy</button>
+          </div>
+          <div class="sha-note">
+            SHA-256: <code>e97849bd...fc74b9</code> &bull; NSIS Silent (<code>/S</code>)
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-copy">
+        <h2>Work with Your Favorite Apps Using t3Bridge</h2>
+        <p>
+          Deploy t3Bridge across your entire team in seconds using our standalone Windows installer or directly through the T3 Hub package manager with cryptographic SHA-256 verification.
+        </p>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue">
+          Download Installer (.exe) <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS (WHITEPACE 1 WHITE + 2 BLUE CARDS) ================= -->
+  <section class="section white-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>
+          What Our Clients
+          <span class="highlight-wrap">
+            Say
+            <svg class="brush-underline" viewBox="0 0 140 22" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 16C44 5 98 5 136 14" stroke="#FFE492" stroke-width="11" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Card 1 (White) -->
+        <article class="testimonial-card">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">
+            We run Marg ERP across 4 pharma distribution branches. Before t3Bridge, remote desktop was slow and expensive. Now our branch PCs mount our HQ drive directly and billing feels completely local.
+          </p>
+          <hr class="quote-divider" />
+          <div class="quote-author">
+            <div class="avatar avatar-navy">RK</div>
+            <div>
+              <div class="author-name">Rajesh Kumar</div>
+              <div class="author-role">Director, Eastern Pharma Distributors</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 (Sky Blue) -->
+        <article class="testimonial-card blue-card">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">
+            Our CA articles access client Tally Prime data from home during GST filing week without copying folders over pendrives. Setup took less than 2 minutes with the Connect Code.
+          </p>
+          <hr class="quote-divider" />
+          <div class="quote-author">
+            <div class="avatar avatar-light">SM</div>
+            <div>
+              <div class="author-name">Subhajit Mukherjee</div>
+              <div class="author-role">Managing Partner, SM &amp; Associates</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 (Sky Blue) -->
+        <article class="testimonial-card blue-card">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">
+            No static IP, no router port forwarding, and zero database corruption even when internet drops. t3Bridge's safe disconnect flush saved our Busy accounting files multiple times.
+          </p>
+          <hr class="quote-divider" />
+          <div class="quote-author">
+            <div class="avatar avatar-light">AP</div>
+            <div>
+              <div class="author-name">Anirban Paul</div>
+              <div class="author-role">Operations Head, Bengal Hardware Mart</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA + FOOTER ================= -->
+  <footer class="footer navy-section" id="footer">
+    <div class="container final-cta text-center">
+      <h2>Try t3Bridge today</h2>
+      <p class="banner-desc">
+        Get started for free on Windows 10 &amp; 11. Connect your office LAN to your entire team in under 2 minutes.
+      </p>
+      <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue btn-lg">
+        Download t3Bridge v0.1.0 <span class="arrow">→</span>
+      </a>
+      <p class="os-caption">Windows 10 / 11 (x64) &bull; Lightweight Rust + Tauri v2 Desktop App</p>
+    </div>
+
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <img src="logo.svg" alt="t3Bridge Logo" class="brand-logo" />
+          <span class="brand-name">t3Bridge</span>
+        </a>
+        <p>
+          Universal P2P Business Application Bridge &amp; Mesh Network built for high-performance desktop accounting &amp; ERP workloads.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Drive Mounting</a>
+        <a href="#branches">Multi-Branch Mesh</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#security">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release" target="_blank" rel="noopener noreferrer">Release Repository</a>
+        <a href="https://github.com/tararajchandra/t3Hub" target="_blank" rel="noopener noreferrer">T3 Hub Package Manager</a>
+        <a href="#t3hub-install">Install Guide</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Try It Today</h4>
+        <p class="footer-mini">Get started free with our 7-day evaluation trial. Scale with Starter, Extended, or Enterprise packs.</p>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release/releases/download/v0.1.0/t3Bridge_0.1.0_x64-setup.exe" class="btn btn-blue btn-sm">
+          Start Today <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>&copy; 2026 t3Bridge Team. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#security">Security</a>
+        <a href="https://github.com/wintararaj-cmd/t3bridge-release" target="_blank" rel="noopener noreferrer">GitHub Releases</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
