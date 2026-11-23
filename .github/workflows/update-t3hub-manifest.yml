@@ -1,0 +1,286 @@
+name: Auto-Update t3Hub Manifest on Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish (e.g. v0.2.0). Leave empty for latest release."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t3bridge-release
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Fetch release metadata and compute SHA-256
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          TAG="${EVENT_TAG:-$INPUT_TAG}"
+          if [ -z "$TAG" ]; then
+            RELEASE_JSON=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/latest")
+          else
+            RELEASE_JSON=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG")
+          fi
+
+          TAG_NAME=$(echo "$RELEASE_JSON" | jq -r '.tag_name')
+          VERSION="${TAG_NAME#v}"
+          ASSET_URL=$(echo "$RELEASE_JSON" | jq -r '.assets[] | select(.name | endswith(".exe")) | .browser_download_url' | head -n 1)
+          ASSET_NAME=$(echo "$RELEASE_JSON" | jq -r '.assets[] | select(.name | endswith(".exe")) | .name' | head -n 1)
+
+          if [ -z "$ASSET_URL" ] || [ "$ASSET_URL" = "null" ]; then
+            echo "::error::No .exe installer asset found in release $TAG_NAME"
+            exit 1
+          fi
+
+          echo "Downloading $ASSET_NAME from $ASSET_URL..."
+          curl -fsSL -o "/tmp/$ASSET_NAME" "$ASSET_URL"
+
+          SHA256=$(sha256sum "/tmp/$ASSET_NAME" | awk '{print $1}')
+          SIZE=$(stat -c%s "/tmp/$ASSET_NAME")
+          RELEASE_DATE=$(date -u +%Y-%m-%d)
+          GENERATED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          {
+            echo "tag=$TAG_NAME"
+            echo "version=$VERSION"
+            echo "url=$ASSET_URL"
+            echo "sha256=$SHA256"
+            echo "size=$SIZE"
+            echo "release_date=$RELEASE_DATE"
+            echo "generated_at=$GENERATED_AT"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Prepared t3Bridge $VERSION (size=$SIZE, sha256=$SHA256)"
+
+      - name: Update local community repo manifest and index
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+          ASSET_URL: ${{ steps.release.outputs.url }}
+          SHA256: ${{ steps.release.outputs.sha256 }}
+          SIZE: ${{ steps.release.outputs.size }}
+          RELEASE_DATE: ${{ steps.release.outputs.release_date }}
+          GENERATED_AT: ${{ steps.release.outputs.generated_at }}
+        run: |
+          mkdir -p manifests/tools/t3bridge
+
+          cat > "manifests/tools/t3bridge/${VERSION}.yaml" <<EOF
+          schema_version: "1.0"
+
+          package:
+            id: "tools.t3bridge"
+            name: "t3Bridge"
+            version: "${VERSION}"
+            description: "Universal P2P Business Application Bridge & Mesh Network for Desktop Business & Accounting Software (Marg ERP, Tally Prime, Busy ERP, SMB)."
+            publisher: "t3Bridge Team"
+            license: "Proprietary"
+            homepage: "https://github.com/wintararaj-cmd/t3bridge-release"
+            repository: "https://github.com/wintararaj-cmd/t3bridge-release"
+            categories:
+              - Networking
+              - Business
+              - Utilities
+            tags:
+              - p2p
+              - vpn
+              - smb
+              - erp
+              - tally
+              - marg
+              - networking
+
+          platform:
+            os: "windows"
+            architectures:
+              - "x64"
+            minimum_windows_version: "10"
+
+          release:
+            channel: "stable"
+            release_date: "${RELEASE_DATE}"
+
+          artifacts:
+            - id: "windows-x64-installer"
+              type: "exe"
+              url: "${ASSET_URL}"
+              sha256: "${SHA256}"
+              size: ${SIZE}
+
+          installation:
+            type: "exe"
+            artifact: "windows-x64-installer"
+            scope: "user"
+            arguments:
+              - "/S"
+            timeout_seconds: 600
+
+          uninstallation:
+            type: "registry"
+            detect:
+              registry_path: "Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\t3Bridge"
+
+          updates:
+            strategy: "version"
+            channel: "stable"
+          EOF
+
+          python3 - <<'PY'
+          import json, os
+
+          ver = os.environ["VERSION"]
+          rel_date = os.environ["RELEASE_DATE"]
+          gen_at = os.environ["GENERATED_AT"]
+          m_path = f"manifests/tools/t3bridge/{ver}.yaml"
+
+          with open("index.json", "r", encoding="utf-8") as f:
+              idx = json.load(f)
+
+          idx["generated_at"] = gen_at
+          for pkg in idx["packages"]:
+              if pkg["id"] == "tools.t3bridge":
+                  pkg["latest_version"] = ver
+                  pkg["manifest_path"] = m_path
+                  versions = [v for v in pkg.get("versions", []) if v["version"] != ver]
+                  versions.insert(0, {
+                      "version": ver,
+                      "manifest_path": m_path,
+                      "release_date": rel_date,
+                  })
+                  pkg["versions"] = versions
+
+          with open("index.json", "w", encoding="utf-8") as f:
+              json.dump(idx, f, indent=2)
+              f.write("\n")
+
+          with open("repository.json", "r", encoding="utf-8") as f:
+              repo_meta = json.load(f)
+          repo_meta["updated_at"] = gen_at
+          with open("repository.json", "w", encoding="utf-8") as f:
+              json.dump(repo_meta, f, indent=2)
+              f.write("\n")
+          PY
+
+      - name: Commit and push updated community repo
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manifests/ index.json repository.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit in t3bridge-release."
+          else
+            git commit -m "chore(release): update t3Bridge manifest and index to v${VERSION}"
+            git push origin main
+          fi
+
+      - name: Open automatic Pull Request to tararajchandra/t3Hub (if T3HUB_PR_TOKEN is set)
+        if: ${{ secrets.T3HUB_PR_TOKEN != '' }}
+        env:
+          T3HUB_PR_TOKEN: ${{ secrets.T3HUB_PR_TOKEN }}
+          VERSION: ${{ steps.release.outputs.version }}
+          RELEASE_DATE: ${{ steps.release.outputs.release_date }}
+          GENERATED_AT: ${{ steps.release.outputs.generated_at }}
+          SHA256: ${{ steps.release.outputs.sha256 }}
+          SIZE: ${{ steps.release.outputs.size }}
+          ASSET_URL: ${{ steps.release.outputs.url }}
+        run: |
+          BRANCH="update-t3bridge-v${VERSION}"
+          git clone "https://x-access-token:${T3HUB_PR_TOKEN}@github.com/wintararaj-cmd/t3Hub.git" /tmp/t3hub
+          cd /tmp/t3hub
+          git config user.name "wintararaj-cmd"
+          git config user.email "251541542+wintararaj-cmd@users.noreply.github.com"
+
+          git remote add upstream "https://github.com/tararajchandra/t3Hub.git"
+          git fetch upstream main
+          git checkout -B "$BRANCH" upstream/main
+
+          mkdir -p repositories/official/manifests/tools/t3bridge
+          cp "${GITHUB_WORKSPACE}/manifests/tools/t3bridge/${VERSION}.yaml" \
+             "repositories/official/manifests/tools/t3bridge/${VERSION}.yaml"
+
+          python3 - <<'PY'
+          import json, os
+
+          ver = os.environ["VERSION"]
+          rel_date = os.environ["RELEASE_DATE"]
+          gen_at = os.environ["GENERATED_AT"]
+          m_path = f"manifests/tools/t3bridge/{ver}.yaml"
+
+          with open("repositories/official/index.json", "r", encoding="utf-8") as f:
+              idx = json.load(f)
+
+          idx["generated_at"] = gen_at
+          found = False
+          for pkg in idx["packages"]:
+              if pkg["id"] == "tools.t3bridge":
+                  found = True
+                  pkg["latest_version"] = ver
+                  pkg["manifest_path"] = m_path
+                  versions = [v for v in pkg.get("versions", []) if v["version"] != ver]
+                  versions.insert(0, {
+                      "version": ver,
+                      "manifest_path": m_path,
+                      "release_date": rel_date,
+                  })
+                  pkg["versions"] = versions
+                  break
+
+          if not found:
+              idx["packages"].append({
+                  "id": "tools.t3bridge",
+                  "name": "t3Bridge",
+                  "publisher": "t3Bridge Team",
+                  "latest_version": ver,
+                  "description": "Universal P2P Business Application Bridge & Mesh Network for Desktop Business & Accounting Software (Marg ERP, Tally Prime, Busy ERP, SMB).",
+                  "categories": ["Networking", "Business", "Utilities"],
+                  "tags": ["p2p", "vpn", "smb", "erp", "tally", "marg", "networking"],
+                  "icon_url": None,
+                  "manifest_path": m_path,
+                  "versions": [{
+                      "version": ver,
+                      "manifest_path": m_path,
+                      "release_date": rel_date,
+                  }],
+              })
+              idx["packages"].sort(key=lambda p: p["id"])
+
+          with open("repositories/official/index.json", "w", encoding="utf-8") as f:
+              json.dump(idx, f, indent=2)
+              f.write("\n")
+          PY
+
+          git add repositories/official/manifests/tools/t3bridge/ repositories/official/index.json
+          if git diff --cached --quiet; then
+            echo "No changes to submit to t3Hub."
+            exit 0
+          fi
+
+          git commit -m "feat(repo): update t3Bridge to v${VERSION}"
+          git push -f origin "$BRANCH"
+
+          curl -fsSL -X POST \
+            -H "Authorization: Bearer ${T3HUB_PR_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/tararajchandra/t3Hub/pulls" \
+            -d "$(jq -n \
+              --arg title "feat(repo): update t3Bridge to v${VERSION}" \
+              --arg head "wintararaj-cmd:${BRANCH}" \
+              --arg base "main" \
+              --arg body "Automated release update for **t3Bridge v${VERSION}**.\n\n- **Artifact:** ${ASSET_URL}\n- **SHA-256:** \`${SHA256}\`\n- **Size:** \`${SIZE}\` bytes" \
+              '{title: $title, head: $head, base: $base, body: $body}')"
