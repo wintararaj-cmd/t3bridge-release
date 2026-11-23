@@ -1,0 +1,11 @@
+{
+  "id": "t3bridge-release",
+  "name": "t3Bridge Release Repository",
+  "url": "https://raw.githubusercontent.com/wintararaj-cmd/t3bridge-release/main/",
+  "type": "community",
+  "version": 1,
+  "description": "Official release distribution repository for t3Bridge on T3 Hub",
+  "public_key": null,
+  "trust_policy": "user-approved",
+  "updated_at": "2026-11-23T04:01:00Z"
+}

@@ -1,0 +1,37 @@
+{
+  "repository_id": "t3bridge-release",
+  "version": 1,
+  "generated_at": "2026-11-23T04:01:00Z",
+  "packages": [
+    {
+      "id": "tools.t3bridge",
+      "name": "t3Bridge",
+      "publisher": "t3Bridge Team",
+      "latest_version": "0.1.0",
+      "description": "Universal P2P Business Application Bridge & Mesh Network for Desktop Business & Accounting Software (Marg ERP, Tally Prime, Busy ERP, SMB).",
+      "categories": [
+        "Networking",
+        "Business",
+        "Utilities"
+      ],
+      "tags": [
+        "p2p",
+        "vpn",
+        "smb",
+        "erp",
+        "tally",
+        "marg",
+        "networking"
+      ],
+      "icon_url": null,
+      "manifest_path": "manifests/tools/t3bridge/0.1.0.yaml",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "manifest_path": "manifests/tools/t3bridge/0.1.0.yaml",
+          "release_date": "2026-11-23"
+        }
+      ]
+    }
+  ]
+}
